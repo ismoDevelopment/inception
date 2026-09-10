@@ -1,0 +1,4 @@
+creating bash terminal in docker container
+docker exec -it $(docker ps --filter name="mariadb" -q) bash
+
+docker compose up --build --remove-orphans -d

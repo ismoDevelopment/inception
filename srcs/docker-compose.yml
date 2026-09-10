@@ -1,0 +1,66 @@
+    services:
+        mariadb:
+            image: mariadb
+            build:
+                context: ./requirements/mariadb
+            restart: unless-stopped
+            environment:
+                WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_PASSWORD
+                WORDPRESS_DB_ROOT_PASSWORD_FILE: /run/secrets/DB_ROOT_PASSWORD
+            env_file: .env
+            secrets:
+                - DB_PASSWORD
+                - DB_ROOT_PASSWORD
+            networks:
+                - inception_bridge
+            expose:
+                - "3306"
+        wordpress:
+            image: wordpress
+            build:
+                context: ./requirements/wordpress
+            restart: unless-stopped
+            environment:
+                WORDPRESS_DB_HOST: ${DB_HOSTNAME}
+                WORDPRESS_DB_USER: ${WP_DB_USER}
+                WORDPRESS_DB_NAME: ${WP_DB_NAME}
+                WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_PASSWORD
+            env_file: .env
+            secrets:
+                - DB_PASSWORD
+            depends_on:
+                mariadb:
+                    condition: service_started
+            networks:
+                - inception_bridge
+            expose:
+                - "9000"
+            # volumes:
+            #     - wordpress_data:/var/www/html
+        nginx:
+            image: nginx
+            networks:
+                - inception_bridge
+            ports:
+                - 80:80
+                - 433:433
+            build:
+                context: ./requirements/nginx
+            restart: unless-stopped
+            env_file: .env
+            depends_on:
+                wordpress:
+                    condition: service_started
+            volumes:
+                - wordpress_data:/var/www/html
+    secrets:
+        DB_PASSWORD:
+            file: ../secrets/db_password.txt
+        DB_ROOT_PASSWORD:
+            file: ../secrets/db_root_password.txt
+    volumes:
+        db_data:
+        wordpress_data:
+    networks:
+        inception_bridge:
+          driver: bridge
