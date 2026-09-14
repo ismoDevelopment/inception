@@ -13,6 +13,8 @@
                 - DB_ROOT_PASSWORD
             networks:
                 - inception_bridge
+            volumes:
+                - db_data:/var/lib/mysql
             expose:
                 - "3306"
         wordpress:
@@ -35,15 +37,14 @@
                 - inception_bridge
             expose:
                 - "9000"
-            # volumes:
-            #     - wordpress_data:/var/www/html
+            volumes:
+                - wordpress_data:/var/www/html
         nginx:
             image: nginx
             networks:
                 - inception_bridge
             ports:
-                - 80:80
-                - 433:433
+                - "433:433"
             build:
                 context: ./requirements/nginx
             restart: unless-stopped

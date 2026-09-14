@@ -15,6 +15,9 @@ RUN apt install -y php-fpm \
 	unzip
 
 COPY ./tools/www.conf .
+COPY ./tools/init.sh .
+
+RUN chmod +x init.sh
 
 WORKDIR /var/www/html
 
@@ -26,8 +29,4 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 RUN wp core download --allow-root
 
-COPY ./tools/init.sh .
-
-RUN chmod +x init.sh
-
-ENTRYPOINT ["./init.sh"]
+ENTRYPOINT ["/init.sh"]
