@@ -1,8 +1,8 @@
     services:
         mariadb:
             image: mariadb
-            build:
-                context: ./requirements/mariadb
+            container_name: mariadb
+            build: ./requirements/mariadb
             restart: unless-stopped
             environment:
                 WORDPRESS_DB_PASSWORD_FILE: /run/secrets/DB_PASSWORD
@@ -19,8 +19,8 @@
                 - "3306"
         wordpress:
             image: wordpress
-            build:
-                context: ./requirements/wordpress
+            container_name: wordpress
+            build: ./requirements/wordpress
             restart: unless-stopped
             environment:
                 WORDPRESS_DB_HOST: ${DB_HOSTNAME}
@@ -41,12 +41,12 @@
                 - wordpress_data:/var/www/html
         nginx:
             image: nginx
+            container_name: nginx
             networks:
                 - inception_bridge
             ports:
                 - "443:443"
-            build:
-                context: ./requirements/nginx
+            build: ./requirements/nginx
             restart: unless-stopped
             env_file: .env
             depends_on:
@@ -61,7 +61,17 @@
             file: ../secrets/db_root_password.txt
     volumes:
         db_data:
+            driver: local
+            driver_opts:
+                type: none
+                o: bind
+                device: ${DATA_FOLDER}/mariadb
         wordpress_data:
+            driver: local
+            driver_opts:
+                type: none
+                o: bind
+                device: ${DATA_FOLDER}/wordpress
     networks:
         inception_bridge:
           driver: bridge
