@@ -44,7 +44,7 @@
             networks:
                 - inception_bridge
             ports:
-                - "433:433"
+                - "443:443"
             build:
                 context: ./requirements/nginx
             restart: unless-stopped
