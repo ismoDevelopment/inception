@@ -30,6 +30,7 @@
             env_file: .env
             secrets:
                 - DB_PASSWORD
+                - WP_ADMIN_PASSWORD
             depends_on:
                 mariadb:
                     condition: service_started
@@ -59,6 +60,8 @@
             file: ../secrets/db_password.txt
         DB_ROOT_PASSWORD:
             file: ../secrets/db_root_password.txt
+        WP_ADMIN_PASSWORD:
+            file: ../secrets/wp_admin_password.txt
     volumes:
         db_data:
             driver: local

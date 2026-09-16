@@ -35,7 +35,7 @@ DOMAIN_NAME = ibenne.42.fr
 DATA_FOLDER = /home/ismo/data
 
 # insert your secrets into these files (without newline):
-./secrets/db_root_password.txt 
+./secrets/db_root_password.txt
 ./secrets/db_password.txt
 
 ```
@@ -59,7 +59,7 @@ make fclean
 > This section explains key differences between Docker and VMs. Aswell the individual services in my docker-compose.yml
 
 ### Why docker?
-Docker is used in this project to isolate the project from the  server/host computer's filesystem while still running on the same kernel. This secures 
+Docker is used in this project to isolate the project from the  server/host computer's filesystem while still running on the same kernel. This secures
 
 ### General Architecture
 
@@ -118,7 +118,7 @@ Docker is used in this project to isolate the project from the  server/host comp
 ### Classic References
 
 - [Official Docker Documentation](https://docs.docker.com/)
-- Add relevant articles, tutorials, RFCs, or documentation specific to the project's topic.
+- [Configuring TLS](https://www.cyberciti.biz/faq/configure-nginx-to-use-only-tls-1-2-and-1-3/)
 
 ### AI Usage
 
