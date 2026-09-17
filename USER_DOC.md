@@ -157,7 +157,7 @@ docker logs -f <service-name>               # one service
 |---|---|---|
 | Web server answers | `curl -kI https://ibenne.42.fr` | `HTTP/1.1 200 OK` |
 | TLS version | `openssl s_client -connect ibenne.42.fr:443 -tls1_3` | Handshake succeeds |
-| Database answers | `docker exec -it <mariadb> mysqladmin ping -u root -p` | `mysqld is alive` |
+| Database answers | `docker exec -it <mariadb container> mysqladmin ping -u root -p` | `mysqld is alive` |
 | Data persists | `make down` then `make`, reload the site | Your content is still there |
 
 ### Common problems

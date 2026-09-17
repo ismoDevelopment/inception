@@ -122,16 +122,4 @@ Docker is used in this project to isolate the project from the  server/host comp
 
 ### AI Usage
 
-> Describe how AI tools were used during the project, specifying:
-> - For which tasks (e.g., debugging, documentation drafting, boilerplate generation, research assistance)
-> - Which parts of the project were impacted
-> - To what extent the output was reviewed/modified by the team
-
-Example:
 - AI was used to help draft this README template and to clarify Docker networking concepts.
-- AI was used to debug a specific error message during container startup.
-- All AI-suggested code was reviewed, tested, and adapted by the team before inclusion.
-
-## Additional Sections
-
-> Add any project-specific sections required by the subject (e.g., Usage Examples, Feature List, Technical Choices).

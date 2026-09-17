@@ -1,10 +1,12 @@
 compose_file := ./srcs/docker-compose.yml
 
+volume_dir := /home/benne/data
+
 all: init pull up
 
 init:
-	cp -r /home/ismo/data/secrets ./secrets
-	cp /home/ismo/data/.env ./srcs/.env
+	cp -r $(volume_dir)/secrets ./secrets
+	cp $(volume_dir)/.env ./srcs/.env
 
 pull:
 	docker compose -f $(compose_file) pull

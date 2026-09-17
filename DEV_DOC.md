@@ -1,7 +1,5 @@
 # Developer Documentation
 
-> **Draft** — placeholders are marked `<LIKE_THIS>`. Replace them with the real values for your project before handing this in.
-
 This document is for developers working on the stack itself. For day-to-day usage of the running site, see [USER_DOC.md](./USER_DOC.md).
 
 ---
@@ -83,11 +81,11 @@ which performs:
 
 ```make
 init:
-	cp -r <DATA_DIR>/secrets ./secrets
-	cp <DATA_DIR>/.env ./srcs/.env
+	cp -r $DATA_FOLDER/secrets ./secrets
+	cp $DATA_FOLDER/.env ./srcs/.env
 ```
 
-`<DATA_DIR>` is currently hard-coded as `/home/ismo/data`. On any other machine, change it before running the rule — ideally make it overridable:
+`$DATA_FOLDER` is currently hard-coded as `/home/ismo/data`. On any other machine, change it before running the rule — ideally make it overridable:
 
 ```make
 DATA_DIR ?= $(HOME)/data
@@ -132,7 +130,7 @@ Secrets are mounted into the containers through the Compose `secrets:` section a
 The bind-mounted volumes point at directories that must exist before the first start:
 
 ```bash
-mkdir -p <DATA_DIR>/mariadb <DATA_DIR>/wordpress
+mkdir -p $DATA_FOLDER/mariadb $DATA_FOLDER/wordpress
 ```
 
 ### 3.4 TLS certificate
@@ -273,7 +271,7 @@ docker exec <mariadb> mariadb-dump -u root -p"$(cat secrets/db_root_password.txt
 tar czf wp-files-$(date +%F).tar.gz -C $DATA_FOLDER wordpress
 
 # Restore the database into a running container
-docker exec -i <mariadb> mariadb -u root -p"$(cat secrets/db_root_password.txt)" < backup.sql
+docker exec -i <mariadb container> mariadb -u root -p"$(cat secrets/db_root_password.txt)" < backup.sql
 ```
 
 A full reset from scratch, for testing that a clean install works end to end:
@@ -288,7 +286,7 @@ make init && make
 
 ## 7. Conventions and gotchas
 
-- Do not commit `srcs/.env`, `secrets/`, or anything under `<DATA_DIR>`. Check `.gitignore` before every commit.
+- Do not commit `srcs/.env`, `secrets/`, or anything under `$DATA_FOLDER`. Check `.gitignore` before every commit.
 - No hard-coded passwords in Dockerfiles, Compose files or scripts — the whole point of the secrets mechanism.
 - Entrypoint scripts must run the service in the foreground (PID 1). No `systemd`, no background daemon plus `tail -f /dev/null`, or the container reports healthy while the service is dead.
 - Use `restart: unless-stopped` (not `always`) so `make down` behaves predictably.
