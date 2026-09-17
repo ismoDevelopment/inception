@@ -11,7 +11,7 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
 
 	wp config create --skip-check --allow-root --dbname=$WP_DB_NAME --dbuser=$WP_DB_USER --dbpass="$(cat $WORDPRESS_DB_PASSWORD_FILE)" --dbhost=$DB_HOSTNAME
 
-	wp user create $WP_ADMIN_USER --role='admin' --password=$(cat $WORDPRESS_ADMIN_PASSWORD_FILE)
+	wp user create --skip-check --allow-root $WP_ADMIN_USER --role='admin' --password=$(cat $WORDPRESS_ADMIN_PASSWORD_FILE)
 fi
 
 exec "php-fpm$PHP_VERSION" -F

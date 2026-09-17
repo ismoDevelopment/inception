@@ -5,6 +5,8 @@ volume_dir := /home/benne/data
 all: init pull up
 
 init:
+	mkdir -p $(volume_dir)/wordpress
+	mkdir -p $(volume_dir)/mariadb
 	cp -r $(volume_dir)/secrets ./secrets
 	cp $(volume_dir)/.env ./srcs/.env
 
