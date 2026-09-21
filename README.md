@@ -115,11 +115,9 @@ Docker is used in this project to isolate the project from the  server/host comp
 
 ## Resources
 
-### Classic References
-
 - [Official Docker Documentation](https://docs.docker.com/)
 - [Configuring TLS](https://www.cyberciti.biz/faq/configure-nginx-to-use-only-tls-1-2-and-1-3/)
 
 ### AI Usage
 
-- AI was used to help draft this README template and to clarify Docker networking concepts.
+- AI was used to help draft this README template.
