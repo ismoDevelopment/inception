@@ -126,6 +126,7 @@ Both are excluded from version control by `.gitignore`. If you cloned the projec
 |---|---|---|
 | `DOMAIN_NAME` | nginx | Public domain of the site |
 | `WP_DB_NAME` | mariadb | Name of the mariadb |
+| `DB_HOSTNAME` | mariadb | Hostname of the database |
 | `WP_DB_USER` | mariadb, wordpress | Non-root mariadb user |
 | `WP_ADMIN_USER` | wordpress | Administrator login for the admin panel |
 | `secrets/db_password.txt` | mariadb, wordpress | Password of that user |

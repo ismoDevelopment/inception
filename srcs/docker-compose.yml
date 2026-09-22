@@ -17,6 +17,8 @@
                 - db_data:/var/lib/mysql
             expose:
                 - "3306"
+            healthcheck:
+                test
         wordpress:
             image: wordpress
             container_name: wordpress
@@ -64,17 +66,7 @@
             file: ../secrets/wp_admin_password.txt
     volumes:
         db_data:
-            driver: local
-            driver_opts:
-                type: none
-                o: bind
-                device: ${DATA_FOLDER}/mariadb
         wordpress_data:
-            driver: local
-            driver_opts:
-                type: none
-                o: bind
-                device: ${DATA_FOLDER}/wordpress
     networks:
         inception_bridge:
           driver: bridge

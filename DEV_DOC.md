@@ -105,6 +105,7 @@ If you do not have the data directory, create them yourself.
 | `WP_DB_NAME` | mariadb | Name of the mariadb |
 | `WP_DB_USER` | mariadb, wordpress | Non-root mariadb user |
 | `WP_ADMIN_USER` | wordpress | Administrator login for the admin panel |
+| `DB_HOSTNAME` | mariadb | Hostname of the database |
 
 `secrets/` — one password per file, no trailing newline:
 
@@ -148,6 +149,7 @@ Everything goes through the Makefile, which wraps `docker compose -f srcs/docker
 | `make` / `make all` | Build images if needed and start the stack detached |
 | `make init` | Copy `.env` and `secrets/` from the data directory |
 | `make up` | Start containers from existing images |
+| `make down` | Stop containers from running | 
 | `make re` | `down` then `all` — the usual rebuild loop |
 | `make clean` | `down` plus remove the project's volumes |
 | `make fclean` | `clean` plus purges the project's images |
