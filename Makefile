@@ -4,10 +4,12 @@ compose_file := ./srcs/docker-compose.yml
 
 all: init pull up
 
-init:
-	rm -rf ./secrets
-	rm -f ./srcs/.env
-	cp -r $(DATA_FOLDER)/secrets ./secrets
+init: 
+	mkdir -p ./secrets
+	printf '%s' $$(openssl rand -base64 24) > ./secrets/db_password.txt
+	printf '%s' $$(openssl rand -base64 24) > ./secrets/db_root_password.txt
+	printf '%s' $$(openssl rand -base64 24) > ./secrets/wp_admin_password.txt
+	printf '%s' $$(openssl rand -base64 24) > ./secrets/wp_user_password.txt
 	cp $(DATA_FOLDER)/.env ./srcs/.env
 
 pull:

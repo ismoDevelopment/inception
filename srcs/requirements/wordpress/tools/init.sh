@@ -16,7 +16,7 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
 
 	wp config create --skip-check --allow-root --dbname=$WP_DB_NAME --dbuser=$WP_DB_USER --dbpass="$(cat $WORDPRESS_DB_PASSWORD_FILE)" --dbhost=$DB_HOSTNAME
 
-	wp core install --allow-root --admin_email="ibenne@student.codam.nl" --url="ibenne.42.fr" --title="Ismo's site" --admin_user=$WP_ADMIN_USER --admin_password=$(cat $WORDPRESS_ADMIN_PASSWORD_FILE)
+	wp core install --allow-root --admin_email="ibenne@student.codam.nl" --url="ibenne.42.fr" --title="Ismo's site" --admin_user=$WP_ADMIN_USER --prompt=admin_password --skip-email < $WORDPRESS_ADMIN_PASSWORD_FILE 
 fi
 
 exec "php-fpm$PHP_VERSION" -F

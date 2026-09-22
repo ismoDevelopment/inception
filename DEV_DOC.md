@@ -76,14 +76,7 @@ Neither `srcs/.env` nor `secrets/` is tracked by git. They live in the host data
 ```bash
 make init
 ```
-
-which performs:
-
-```make
-init:
-	cp -r $DATA_FOLDER/secrets ./secrets
-	cp $DATA_FOLDER/.env ./srcs/.env
-```
+Which copies the .env file from /home/ismo/data and generates random secrets
 
 `$DATA_FOLDER` is currently hard-coded as `/home/ismo/data`. On any other machine, change it before running the rule — ideally make it overridable:
 
@@ -118,10 +111,11 @@ If you do not have the data directory, create them yourself.
 
 ```bash
 mkdir -p secrets
-printf '%s' "$(openssl rand -base64 24)" > secrets/db_password.txt
-printf '%s' "$(openssl rand -base64 24)" > secrets/db_root_password.txt
-printf '%s' "$(openssl rand -base64 24)" > secrets/wp_admin_password.txt
-printf '%s' "$(openssl rand -base64 24)" > secrets/wp_user_password.txt
+	printf '%s' $(openssl rand -base64 24) > ./secrets/db_password.txt
+	printf '%s' $(openssl rand -base64 24) > ./secrets/db_root_password.txt
+	printf '%s' $(openssl rand -base64 24) > ./secrets/wp_admin_password.txt
+	printf '%s' $(openssl rand -base64 24) > ./secrets/wp_user_password.txt
+
 ```
 
 Secrets are mounted into the containers through the Compose `secrets:` section and read from `/run/secrets/<name>` by the entrypoint scripts. They are deliberately **not** passed as environment variables, so they do not appear in `docker inspect` or in the image history.
@@ -147,7 +141,7 @@ Everything goes through the Makefile, which wraps `docker compose -f srcs/docker
 | Rule | What it does |
 |---|---|
 | `make` / `make all` | Build images if needed and start the stack detached |
-| `make init` | Copy `.env` and `secrets/` from the data directory |
+| `make init` | Copy `.env` from the data directory and generates random secrets |
 | `make up` | Start containers from existing images |
 | `make down` | Stop containers from running | 
 | `make re` | `down` then `all` — the usual rebuild loop |
