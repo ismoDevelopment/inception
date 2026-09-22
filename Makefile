@@ -16,6 +16,8 @@ pull:
 	docker compose -f $(compose_file) pull
 
 up:
+	mkdir -p $(DATA_FOLDER)/wordpress
+	mkdir -p $(DATA_FOLDER)/mariadb
 	docker compose -f $(compose_file) up --build --remove-orphans -d
 
 down:
@@ -23,6 +25,7 @@ down:
 
 clean:
 	docker compose -f $(compose_file) down -v --rmi all
+	sudo rm -rf $(DATA_FOLDER)/wordpress $(DATA_FOLDER)/mariadb
 
 fclean: clean
 	rm -rf ./secrets
