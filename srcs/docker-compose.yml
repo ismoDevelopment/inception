@@ -65,13 +65,11 @@
             file: ../secrets/wp_admin_password.txt
     volumes:
         db_data:
-            driver: local
             driver_opts:
                 type: none
                 o: bind
                 device: ${DATA_FOLDER}/mariadb
         wordpress_data:
-            driver: local
             driver_opts:
                 type: none
                 o: bind
