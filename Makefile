@@ -1,7 +1,7 @@
 data_folder := /home/$(USER)/data
 compose_file := ./srcs/docker-compose.yml
 
-all: init pull up
+all: up
 
 init:
 	mkdir -p ./secrets
@@ -27,6 +27,6 @@ fclean: clean
 	rm -rf ./secrets
 	rm -f ./srcs/.env
 
-re: fclean all
+re: fclean init all
 
 .PHONY: init pull up all down clean fclean re

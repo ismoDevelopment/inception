@@ -144,7 +144,7 @@ Everything goes through the Makefile, which wraps `docker compose -f srcs/docker
 | `make init` | Copy `.env` from the data directory and generates random secrets |
 | `make up` | Start containers from existing images |
 | `make down` | Stop containers from running | 
-| `make re` | `down` then `all` — the usual rebuild loop |
+| `make re` | `fclean` then `all` — the usual rebuild loop |
 | `make clean` | `down` plus remove the project's volumes |
 | `make fclean` | `clean` plus purges the project's images |
 Underlying commands, if you prefer to run Compose directly:
@@ -225,7 +225,6 @@ Both are declared as named volumes with a `driver_opts` bind to a host directory
 ```yaml
 volumes:
   wordpress-data:
-    driver: local
     driver_opts:
       type: none
       o: bind

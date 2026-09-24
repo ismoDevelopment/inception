@@ -27,6 +27,7 @@ cd inception
 # Set up environment variables and secrets (see Secrets vs Environment Variables below)
 
 # .env example:
+WP_ADMIN_USER = YOUR_WP_ADMIN_USER
 WP_DB_USER = YOUR_DB_USER
 WP_DB_ROOTUSER = YOUR_ROOT_USER
 WP_DB_NAME = YOUR_DB_NAME
